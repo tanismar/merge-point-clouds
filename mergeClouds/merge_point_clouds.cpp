@@ -151,8 +151,8 @@ int MergePointclouds()
 	}
 
 	//all files are processed, ICP is done	
-	printf("ICP finished. %d files processed.\n", count);
-	printf("Merged point cloud size is %d\n",cloud_icp->size());
+	printf("ICP finished. %i files processed.\n", count);
+	printf("Merged point cloud size is %lu\n",cloud_icp->size());
 
 	// save data
 	/*printf("Saving data to file...\n");		
@@ -167,7 +167,7 @@ int MergePointclouds()
   	grid.setLeafSize (0.005f, 0.005f, 0.005f);
   	grid.filter (*cloud_filtered);
 
-	printf("Downsampled cloud size is %d\n",cloud_filtered->size());
+	printf("Downsampled cloud size is %lu\n",cloud_filtered->size());
 
 
 	//compute surface normals
@@ -192,7 +192,7 @@ int MergePointclouds()
   	ne.compute (*cloud_normals);
 
 	// cloud_normals->points.size () should have the same size as the input cloud->points.size ()*
-	printf("cloud size: %d; normals size: %d\n", cloud_filtered->points.size(), cloud_normals->points.size());
+	printf("cloud size: %lu; normals size: %lu\n", cloud_filtered->points.size(), cloud_normals->points.size());
 
 		
     printf("Visualizing point clouds...\n");				
