@@ -29,6 +29,7 @@ class MergeModule:public RFModule
 {
     RpcServer handlerPort; //a port to handle messages
     string path; //path to folder with .ply files
+    bool closing;
 
 void Visualize(PointCloudT::Ptr cloud, pcl::PointCloud<pcl::Normal>::Ptr normals)
 	{
@@ -63,8 +64,16 @@ void Visualize(PointCloudT::Ptr cloud, pcl::PointCloud<pcl::Normal>::Ptr normals
 
 	// Display the visualiser
 	while (!viewer.wasStopped ()) {
-		viewer.spinOnce ();
-	}
+        if (closing)
+            {
+                viewer->close();
+                break;
+            }
+            viewer->spinOnce (100);
+            boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+        }
+        viewer->removePointCloud(id);
+    }
 
 }
 
@@ -154,7 +163,7 @@ int MergePointclouds()
 	printf("ICP finished. %d files processed.\n", count);
 	printf("Merged point cloud size is %d\n",cloud_icp->size());
 
-	// save data
+	//XXX save data
 	/*printf("Saving data to file...\n");		
 	pcl::PLYWriter writer;
 	writer.write ("../cloud_merged.ply", *cloud_icp);
@@ -228,12 +237,15 @@ public:
 		printf("Path: %s",path.c_str());		
 		handlerPort.open("/mergeModule");
         attach(handlerPort);
+        closing = false;
         return true;
     }
 
     
     bool interruptModule()
     {
+        closing = true;
+        handlerPort.interrupt();
         cout<<"Interrupting your module, for port cleanup"<<endl;
         return true;
     }
