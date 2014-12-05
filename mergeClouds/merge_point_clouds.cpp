@@ -45,7 +45,8 @@ void Visualize(PointCloudT::Ptr cloud, pcl::PointCloud<pcl::Normal>::Ptr normals
 
 	// ICP aligned point cloud 
 	pcl::visualization::PointCloudColorHandlerRGBField<PointT> cloud_in_color_i (cloud);
-	viewer.addPointCloud (cloud, cloud_in_color_i, "cloud_icp_v1", v1);
+	string id="Merged Cloud";
+	viewer.addPointCloud (cloud, cloud_in_color_i, id, v1);
 
 
 	viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "cloud_icp_v1");
@@ -66,16 +67,14 @@ void Visualize(PointCloudT::Ptr cloud, pcl::PointCloud<pcl::Normal>::Ptr normals
 	while (!viewer.wasStopped ()) {
         if (closing)
             {
-                viewer->close();
+                viewer.close();
                 break;
             }
-            viewer->spinOnce (100);
+            viewer.spinOnce (100);
             boost::this_thread::sleep (boost::posix_time::microseconds (100000));
         }
-        viewer->removePointCloud(id);
+        viewer.removePointCloud(id);
     }
-
-}
 
 
 int MergePointclouds()
