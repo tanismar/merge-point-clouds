@@ -49,7 +49,7 @@ void Visualize(PointCloudT::Ptr cloud, pcl::PointCloud<pcl::Normal>::Ptr normals
 	viewer.addPointCloud (cloud, cloud_in_color_i, id, v1);
 
 
-	viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "cloud_icp_v1");
+	viewer.setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, id);
 	
 	//Add normals
 	viewer.addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal>(cloud,normals,10,0.01,"normals");
@@ -162,11 +162,11 @@ int MergePointclouds()
 	printf("ICP finished. %i files processed.\n", count);
 	printf("Merged point cloud size is %lu\n",cloud_icp->size());
 
-	//XXX save data
-	/*printf("Saving data to file...\n");		
+	// save data
+	printf("Saving data to file...\n");		
 	pcl::PLYWriter writer;
 	writer.write ("../cloud_merged.ply", *cloud_icp);
-	*/
+	
 
 	// downsampling with voxel grid
 	printf("Downsampling point clouds...\n");	
