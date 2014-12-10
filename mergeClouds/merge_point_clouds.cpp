@@ -243,7 +243,7 @@ int MergePointclouds()
 }
 
 /************************************************************************/
-void savePointsPly(pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, string name)
+void savePointsPly(pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud, const string& name)
 {
     stringstream s;
     s.str("");
@@ -324,7 +324,7 @@ public:
 		reply.addString("merge - Merges all pointclouds on the path folder, or the new ones if 'cloud_merged' already exists.");
 		reply.addString("view - Activates visualization. (XXX visualizer does not close). Default off");
 		reply.addString("save - Activates saving the resulting merged point cloud.");
-		reply.addString("verbose ON/OFF - Sets active the printouts of the program, for debugging or visualization.");
+		//reply.addString("verbose ON/OFF - Sets active the printouts of the program, for debugging or visualization.");
 		reply.addString("help - produces this help.");
 		reply.addString("quit - closes the module.");
 		
