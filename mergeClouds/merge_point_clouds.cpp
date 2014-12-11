@@ -55,10 +55,6 @@ void Visualize(boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer, Poin
 	//Add normals
 	//viewer->addPointCloudNormals<pcl::PointXYZRGB, pcl::Normal>(cloud,normals,10,0.01,"normals");
 
-	// Set background color
-	//viewer->setBackgroundColor(bckgr_gray_level, bckgr_gray_level, bckgr_gray_level, v1);
-	
-
 	// Set camera position and orientation
 	//viewer.setCameraPosition(-0.0611749, -0.040113, 0.00667606, -0.105521, 0.0891437, 0.990413);
 	viewer->initCameraParameters();
@@ -79,6 +75,7 @@ void Visualize(boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer, Poin
 	printf ("Closing visualizer: \n");
 	viewer->close();
         viewer->removePointCloud(id);
+
     }
 
 
@@ -237,7 +234,6 @@ int MergePointclouds()
 		printf("Visualizing point clouds...\n");				
 		Visualize(viewer, cloud_filtered, cloud_normals);
 	}
-
     
     return 0;
 }
