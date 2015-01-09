@@ -109,15 +109,22 @@ int MergePointclouds()
 
 		vector<string> fileNames;
 		while ((ent = readdir(dir)) != NULL) {
+			int len = strlen (ent->d_name);
 			if ( ent->d_type == DT_REG)
 			{
-				cout <<"Found a File : " << ent->d_name << endl;				
 				if( strcmp(ent->d_name, "cloud_merged.ply")==0){
 					initF = false;		// Mark when there is an existing merged cloud
 					cout << "Previous merge found, scanning only new .ply files "  << endl;
 				} else {
-					fileNames.push_back(ent->d_name);
-					filesFound++;
+					if (len >= 4) {
+					    if (strcmp (".ply", &(ent->d_name[len - 4])) == 0) {
+						printf ("Found valid .ply file %s\n", ent->d_name);
+						fileNames.push_back(ent->d_name);
+						filesFound++;
+					    }else{
+					    	printf ("Found non valid file %s\n", ent->d_name);
+					    }
+					}					
 				}					
 			}			
 		}
@@ -355,6 +362,8 @@ public:
 	/*Init variables*/
 	initF = true;	
 	filesScanned = 0;
+
+	cout<<"Configuring done."<<endl;
 
         return true;
     }
